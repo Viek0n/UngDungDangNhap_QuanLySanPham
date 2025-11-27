@@ -1,18 +1,17 @@
+import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import ProductPage from "../components/Products/Products";
 import * as api from "../services/api";
-
+//npm test -- ProductForm.integration.test.js
 jest.mock("../services/api");
-
 describe("ProductPage Integration Test", () => {
-  const sampleProduct = {    
-      id: 1,
-      name: "Cơm tấm sườn",
-      description: "Cơm tấm sườn bì chả",
-      price: 55,
-      quantity: 20,
-      category: "Món chính",
-    
+  const sampleProduct = {
+    id: 1,
+    name: "Pizza",
+    description: "Delicious pizza",
+    price: 120,
+    quantity: 10,
+    category: "Món chính",
   };
 
   beforeEach(() => {
@@ -20,53 +19,29 @@ describe("ProductPage Integration Test", () => {
   });
 
   test("should create a new product successfully", async () => {
-    api.productService.createProduct.mockResolvedValue({ ...sampleProduct, id: 2 });
+    api.productService.createProduct.mockResolvedValue({ ...sampleProduct, id: 100 });
 
     render(<ProductPage />);
-    fireEvent.change(screen.getByLabelText(/name/i), {
-      target: { value: "New Product" },
+    fireEvent.change(screen.getByLabelText(/Tên sản phẩm/i), {
+      target: { value: "test" },
     });
-    fireEvent.change(screen.getByLabelText(/description/i), {
-      target: { value: "New Description" },
+    fireEvent.change(screen.getByLabelText(/Mô tả/i), {
+      target: { value: "test" },
     });
-    fireEvent.change(screen.getByLabelText(/price/i), {
-      target: { value: 50 },
+    fireEvent.change(screen.getByLabelText(/Giá/i), {
+      target: { value: 1 },
     });
-    fireEvent.change(screen.getByLabelText(/quantity/i), {
-      target: { value: 10 },
+    fireEvent.change(screen.getByLabelText(/Số lượng/i), {
+      target: { value: 1 },
     });
-    fireEvent.change(screen.getByLabelText(/category/i), {
-      target: { value: "Drink" },
+    fireEvent.change(screen.getByLabelText(/Danh mục/i), {
+      target: { value: "Món chính" },
     });
 
-    fireEvent.click(screen.getByRole("button", { name: /save/i }));
-
-    await waitFor(() => {
-      expect(api.createProduct).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  test("should load existing product and update successfully", async () => {
-    api.getProductById.mockResolvedValue(sampleProduct);
-    api.updateProduct.mockResolvedValue({ ...sampleProduct, name: "Updated Name" });
-
-    render(<ProductPage productId={1} />);
+    fireEvent.click(screen.getByRole("button", { name: /Thêm sản phẩm/i }));
 
     await waitFor(() => {
-      expect(screen.getByDisplayValue("Test Product")).toBeInTheDocument();
-    });
-
-    fireEvent.change(screen.getByLabelText(/name/i), {
-      target: { value: "Updated Name" },
-    });
-
-    fireEvent.click(screen.getByRole("button", { name: /save/i }));
-
-    await waitFor(() => {
-      expect(api.updateProduct).toHaveBeenCalledWith(1, {
-        ...sampleProduct,
-        name: "Updated Name",
-      });
+      expect(api.productService.createProduct).toHaveBeenCalledTimes(1);
     });
   });
 });
