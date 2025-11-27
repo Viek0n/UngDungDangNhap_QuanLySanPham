@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="1" failures="0" errors="0" time="4.213">
-  <testsuite name="ProductPage Integration Test" errors="0" failures="0" skipped="0" timestamp="2025-11-27T14:01:56" time="2.434" tests="1">
-    <testcase classname="ProductPage Integration Test should create a new product successfully" name="ProductPage Integration Test should create a new product successfully" time="0.374">
+<testsuites name="jest tests" tests="1" failures="0" errors="0" time="6.682">
+  <testsuite name="ProductPage Integration Test" errors="0" failures="0" skipped="0" timestamp="2025-11-27T14:27:56" time="4.423" tests="1">
+    <testcase classname="ProductPage Integration Test should create a new product successfully" name="ProductPage Integration Test should create a new product successfully" time="0.474">
     </testcase>
   </testsuite>
 </testsuites>
