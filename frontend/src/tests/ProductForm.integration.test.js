@@ -5,13 +5,14 @@ import * as api from "../services/api";
 jest.mock("../services/api");
 
 describe("ProductPage Integration Test", () => {
-  const sampleProduct = {
-    id: 1,
-    name: "Pizza",
-    description: "Delicious pizza",
-    price: 120,
-    quantity: 10,
-    category: "Món chính",
+  const sampleProduct = {    
+      id: 1,
+      name: "Cơm tấm sườn",
+      description: "Cơm tấm sườn bì chả",
+      price: 55,
+      quantity: 20,
+      category: "Món chính",
+    
   };
 
   beforeEach(() => {
