@@ -4,11 +4,12 @@ const productPage = new ProductPage();
 
 describe('Product E2E Tests', () => {
   const product = {
-    name: 'Pizza',
-    price: 120,
-    quantity: 10,
-    description: 'Pizza ngon tuyệt',
-    category: 'Món chính',
+      id: 1,
+      name: "Cơm tấm sườn",
+      description: "Cơm tấm sườn bì chả",
+      price: 55,
+      quantity: 20,
+      category: "Món chính",  
   };
 
 //   beforeEach(() => {
