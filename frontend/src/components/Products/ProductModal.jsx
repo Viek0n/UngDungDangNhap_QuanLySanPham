@@ -48,16 +48,16 @@ export default function ProductModal({ product, onClose, onSave, categories }) {
         <h3>Cập nhật sản phẩm</h3>
 
         <form className="modal-form" onSubmit={handleSubmit}>
-          <label>Tên sản phẩm</label>
+          <label>Tên sản phẩm
           <input
             name="name"
             value={form.name}
             onChange={handleChange}
             data-cy="modal-name"
-          />
+          /></label>
           {errors.name && <div className="field-error" data-cy="modal-error-name">{errors.name}</div>}
 
-          <label>Danh mục</label>
+          <label>Danh mục
           <select
             name="category"
             value={form.category}
@@ -70,21 +70,22 @@ export default function ProductModal({ product, onClose, onSave, categories }) {
                 {c}
               </option>
             ))}
-          </select>
+          </select></label>
           {errors.category && <div className="field-error" data-cy="modal-error-category">{errors.category}</div>}
 
-          <label>Giá (VND)</label>
+          <label>Giá
           <input
+            id="price"
             name="price"
             type="number"
             value={form.price}
             onChange={handleChange}
             placeholder="Nhập giá..."
             data-cy="modal-price"
-          />
+          /></label>
           {errors.price && <div className="field-error" data-cy="modal-error-price">{errors.price}</div>}
 
-          <label>Số lượng</label>
+          <label>Số lượng
           <input
             name="quantity"
             type="number"
@@ -92,17 +93,17 @@ export default function ProductModal({ product, onClose, onSave, categories }) {
             onChange={handleChange}
             placeholder="Nhập số lượng..."
             data-cy="modal-quantity"
-          />
+          /></label>
           {errors.quantity && <div className="field-error" data-cy="modal-error-quantity">{errors.quantity}</div>}
 
-          <label>Mô tả</label>
+          <label>Mô tả
           <textarea
             name="description"
             value={form.description}
             onChange={handleChange}
             rows="3"
             data-cy="modal-description"
-          />
+          /></label>
           {errors.description && <div className="field-error" data-cy="modal-error-description">{errors.description}</div>}
 
           <div className="modal-actions">

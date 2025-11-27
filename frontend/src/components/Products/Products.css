@@ -447,7 +447,7 @@
 .modal-form input,
 .modal-form textarea {
   margin-bottom: 1.25rem;
-  width: 100%;
+  width: 90%;
   padding: 0.8rem;
   border: 2px solid #e9ecef;
   border-radius: 8px;

@@ -2,25 +2,24 @@ import React, { useState } from "react";
 import "./Products.css";
 import ProductModal from "./ProductModal";
 import { validateProductForm } from "../../utils/validation";
+import { productService } from "../../services/api";
 
 export default function Products() {
   const [products, setProducts] = useState([
     // Món chính
     {
       id: 1,
-      name: "Cơm tấm sườn",
-      description: "Cơm tấm sườn bì chả",
-      price: 55,
-      quantity: 20,
-      category: "Món chính",
+      name: "Pizza",
+      description: "Delicious pizza",
+      price: 120,
+      quantity: 10,
     },
     {
       id: 2,
-      name: "Mì xào bò",
-      description: "Mì xào bò rau củ",
-      price: 50,
-      quantity: 15,
-      category: "Món chính",
+      name: "Bánh kem",
+      description: "Bánh kem ngon",
+      price: 80,
+      quantity: 5,
     },
     {
       id: 3,
@@ -168,7 +167,7 @@ export default function Products() {
   const currentProducts = filteredProducts.slice(indexOfFirst, indexOfLast);
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { isValid, errors: validationErrors } = validateProductForm(
       form,
@@ -178,6 +177,7 @@ export default function Products() {
     if (!isValid) return;
 
     if (selectedProduct) {
+      await productService.updateProduct(selectedProduct.id, form);
       setProducts((prev) =>
         prev.map((p) =>
           p.id === selectedProduct.id ? { ...form, id: p.id } : p
@@ -185,6 +185,7 @@ export default function Products() {
       );
       setMessage("Cập nhật sản phẩm thành công ❗");
     } else {
+      await productService.createProduct(form);
       setProducts((prev) => [...prev, { ...form, id: Date.now() }]);
       setMessage("Thêm sản phẩm thành công ❗");
     }
@@ -260,19 +261,19 @@ export default function Products() {
 
         <div className="form-row">
           <div className={`form-group ${errors.name ? "has-error" : ""}`}>
-            <label>Tên sản phẩm</label>
+            <label>Tên sản phẩm
             <input
               name="name"
               value={form.name}
               data-cy="product-name"
               onChange={(e) => setForm({ ...form, name: e.target.value })}
               placeholder="Nhập tên sản phẩm..."
-            />
+            /></label>
             {errors.name && <div className="field-error">{errors.name}</div>}
           </div>
 
           <div className={`form-group ${errors.category ? "has-error" : ""}`}>
-            <label>Danh mục</label>
+            <label>Danh mục
             <select
               name="category"
               className="food-select"
@@ -286,7 +287,7 @@ export default function Products() {
                   {c}
                 </option>
               ))}
-            </select>
+            </select></label>
             {errors.category && (
               <div className="field-error">{errors.category}</div>
             )}
@@ -295,7 +296,7 @@ export default function Products() {
 
         <div className="form-row">
           <div className={`form-group ${errors.price ? "has-error" : ""}`}>
-            <label>Giá (VND)</label>
+            <label>Giá
             <input
               name="price"
               type="number"
@@ -304,12 +305,12 @@ export default function Products() {
               onChange={(e) => setForm({ ...form, price: e.target.value })}
               placeholder="Nhập giá..."
               className="price-input"
-            />
+            /></label>
             {errors.price && <div className="field-error">{errors.price}</div>}
           </div>
 
           <div className={`form-group ${errors.quantity ? "has-error" : ""}`}>
-            <label>Số lượng</label>
+            <label>Số lượng
             <input
               name="quantity"
               type="number"
@@ -318,7 +319,7 @@ export default function Products() {
               onChange={(e) => setForm({ ...form, quantity: e.target.value })}
               placeholder="Nhập số lượng..."
               className="price-input"
-            />
+            /></label>
             {errors.quantity && (
               <div className="field-error">{errors.quantity}</div>
             )}
@@ -326,7 +327,7 @@ export default function Products() {
         </div>
 
         <div className="form-group">
-          <label>Mô tả</label>
+          <label>Mô tả
           <textarea
             name="description"
             className="food-description"
@@ -336,7 +337,7 @@ export default function Products() {
               setForm({ ...form, description: e.target.value })
             }
             placeholder="Mô tả sản phẩm (tùy chọn)..."
-          />
+          /></label>
           {errors.description && (
             <div className="field-error">{errors.description}</div>
           )}
