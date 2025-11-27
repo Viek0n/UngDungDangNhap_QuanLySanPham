@@ -9,6 +9,7 @@ describe('Product E2E Tests', () => {
       description: "Delicious pizza",
       price: 120,
       quantity: 10,
+      category: "Món chính",
   };
 
 //   beforeEach(() => {

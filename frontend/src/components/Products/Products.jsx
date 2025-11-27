@@ -13,6 +13,7 @@ export default function Products() {
       description: "Delicious pizza",
       price: 120,
       quantity: 10,
+      category: "Món chính",
     },
     {
       id: 2,
@@ -20,6 +21,7 @@ export default function Products() {
       description: "Bánh kem ngon",
       price: 80,
       quantity: 5,
+      category: "Tráng miệng",
     },
     {
       id: 3,
