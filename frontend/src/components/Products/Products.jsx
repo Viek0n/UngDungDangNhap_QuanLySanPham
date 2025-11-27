@@ -5,23 +5,135 @@ import { validateProductForm } from "../../utils/validation";
 
 export default function Products() {
   const [products, setProducts] = useState([
+    // Món chính
     {
       id: 1,
-      name: "Pizza",
-      description: "Delicious pizza",
-      price: 120,
-      quantity: 10,
+      name: "Cơm tấm sườn",
+      description: "Cơm tấm sườn bì chả",
+      price: 55,
+      quantity: 20,
       category: "Món chính",
     },
     {
       id: 2,
-      name: "Bánh kem",
-      description: "Bánh kem ngon",
-      price: 80,
-      quantity: 5,
+      name: "Mì xào bò",
+      description: "Mì xào bò rau củ",
+      price: 50,
+      quantity: 15,
+      category: "Món chính",
+    },
+    {
+      id: 3,
+      name: "Gà rán",
+      description: "Gà rán giòn cay",
+      price: 65,
+      quantity: 18,
+      category: "Món chính",
+    },
+
+    // Tráng miệng
+    {
+      id: 4,
+      name: "Bánh flan",
+      description: "Flan caramel mềm mịn",
+      price: 20,
+      quantity: 12,
       category: "Tráng miệng",
     },
+    {
+      id: 5,
+      name: "Chè khúc bạch",
+      description: "Chè khúc bạch thơm mát",
+      price: 28,
+      quantity: 14,
+      category: "Tráng miệng",
+    },
+    {
+      id: 6,
+      name: "Kem dừa",
+      description: "Kem dừa tươi béo nhẹ",
+      price: 22,
+      quantity: 10,
+      category: "Tráng miệng",
+    },
+    {
+      id: 7,
+      name: "Bánh su kem",
+      description: "Su kem mềm béo",
+      price: 18,
+      quantity: 16,
+      category: "Tráng miệng",
+    },
+
+    // Đồ uống
+    {
+      id: 8,
+      name: "Trà đào",
+      description: "Trà đào miếng thơm mát",
+      price: 30,
+      quantity: 25,
+      category: "Đồ uống",
+    },
+    {
+      id: 9,
+      name: "Nước cam",
+      description: "Nước cam nguyên chất",
+      price: 32,
+      quantity: 20,
+      category: "Đồ uống",
+    },
+    {
+      id: 10,
+      name: "Sinh tố xoài",
+      description: "Sinh tố xoài tươi",
+      price: 35,
+      quantity: 15,
+      category: "Đồ uống",
+    },
+    {
+      id: 11,
+      name: "Soda bạc hà",
+      description: "Soda vị bạc hà mát lạnh",
+      price: 28,
+      quantity: 18,
+      category: "Đồ uống",
+    },
+
+    // Khai vị
+    {
+      id: 12,
+      name: "Khoai tây chiên",
+      description: "Khoai chiên giòn rụm",
+      price: 25,
+      quantity: 22,
+      category: "Khai vị",
+    },
+    {
+      id: 13,
+      name: "Gỏi cuốn",
+      description: "Gỏi cuốn tôm thịt",
+      price: 30,
+      quantity: 12,
+      category: "Khai vị",
+    },
+    {
+      id: 14,
+      name: "Súp ngô",
+      description: "Súp ngô kem ngọt",
+      price: 27,
+      quantity: 10,
+      category: "Khai vị",
+    },
+    {
+      id: 15,
+      name: "Bánh mì bơ tỏi",
+      description: "Bánh mì nướng bơ tỏi thơm",
+      price: 22,
+      quantity: 14,
+      category: "Khai vị",
+    },
   ]);
+
 
   const [categories] = useState([
     "Món chính",
@@ -42,7 +154,7 @@ export default function Products() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterCategory, setFilterCategory] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 8;
   const [message, setMessage] = useState("");
 
   const filteredProducts = products
