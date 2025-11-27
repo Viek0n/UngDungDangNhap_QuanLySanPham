@@ -1,0 +1,97 @@
+name: Complete CI / CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  CI_CD_Pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      #setup java
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+            distribution: temurin
+            java-version: '21'
+      # Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      #Cấp quyền chmod cho github trước khi chạy mvn trong backend
+      - name: Grant execute permission for mvnw
+        run: |
+          cd backend
+          chmod +x mvnw
+      
+      #BackEnd Testings
+      #Note: -DskipITs=false = KHÔNG bỏ qua integration test
+      - name: Build & Test Backend
+        run: |
+          cd backend
+          ./mvnw clean test -DskipITs=false
+      #Build backend
+      - name: Package Backend
+        run: |
+          cd backend
+          ./mvnw clean package -DskipTests
+      #Upload lên GitHub Actions làm artifact, dặt tên artifact: backend-jar
+      #Giúp các job vd: frontend E2E tải file .jar về rồi chạy backend thật để test.
+      - name: Upload backend JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-jar
+          path: backend/target/*.jar
+      
+
+      # Install dependencies
+      - name: Install dependencies
+        env:
+          CYPRESS_INSTALL_BINARY: 0
+        run: |
+          cd frontend
+          npm ci
+      # Seperate Cypress Installation because its somehow bugging thanks to Quang's commit
+      - name: Install Cypress
+        run: |
+          cd frontend
+          npx cypress install
+
+      # Run Product Unit Tests 
+      - name: Run Product Unit Tests
+        run: |
+          cd frontend
+          npm run test:ci || echo "No unit tests found"
+
+      # Start frontend (Vite)
+      - name: Start frontend 
+        run: |
+            cd frontend
+            npm ci
+            npm run build
+            npm run dev &   # chạy Vite server ở background
+            npx wait-on http://localhost:5173
+
+      # Run Cypress E2E tests
+      - name: Run Product E2E Tests
+        run: |
+            cd frontend
+            npx cypress run --spec "cypress/e2e/product.cy.js"
+
+      # Upload Cypress results (videos/screenshots)
+      - name: Upload Cypress test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-test-report
+          path: |
+            frontend/cypress/videos/
+            frontend/cypress/screenshots/

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="32" failures="0" errors="0" time="1.704">
+  <testsuite name="validateLoginForm" errors="0" failures="0" skipped="0" timestamp="2025-11-24T00:28:54" time="0.715" tests="5">
+    <testcase classname="validateLoginForm should return error when username is empty" name="validateLoginForm should return error when username is empty" time="0.005">
+    </testcase>
+    <testcase classname="validateLoginForm should return error when username contains special chars" name="validateLoginForm should return error when username contains special chars" time="0.001">
+    </testcase>
+    <testcase classname="validateLoginForm should return error when password is empty" name="validateLoginForm should return error when password is empty" time="0">
+    </testcase>
+    <testcase classname="validateLoginForm should return error when password is too short" name="validateLoginForm should return error when password is too short" time="0">
+    </testcase>
+    <testcase classname="validateLoginForm should be valid for correct inputs" name="validateLoginForm should be valid for correct inputs" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="validateProductForm" errors="0" failures="0" skipped="0" timestamp="2025-11-24T00:28:54" time="0.736" tests="9">
+    <testcase classname="validateProductForm name validation - empty" name="validateProductForm name validation - empty" time="0.005">
+    </testcase>
+    <testcase classname="validateProductForm name validation - too short and too long" name="validateProductForm name validation - too short and too long" time="0">
+    </testcase>
+    <testcase classname="validateProductForm price boundary tests" name="validateProductForm price boundary tests" time="0.001">
+    </testcase>
+    <testcase classname="validateProductForm price non-numeric and empty" name="validateProductForm price non-numeric and empty" time="0">
+    </testcase>
+    <testcase classname="validateProductForm quantity boundary tests" name="validateProductForm quantity boundary tests" time="0">
+    </testcase>
+    <testcase classname="validateProductForm quantity non-numeric and empty" name="validateProductForm quantity non-numeric and empty" time="0.001">
+    </testcase>
+    <testcase classname="validateProductForm description length validation" name="validateProductForm description length validation" time="0">
+    </testcase>
+    <testcase classname="validateProductForm category validation" name="validateProductForm category validation" time="0">
+    </testcase>
+    <testcase classname="validateProductForm valid product returns no errors" name="validateProductForm valid product returns no errors" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="Login Mock Tests" errors="0" failures="0" skipped="0" timestamp="2025-11-24T00:28:54" time="0.884" tests="2">
+    <testcase classname="Login Mock Tests Login thành công" name="Login Mock Tests Login thành công" time="0.041">
+    </testcase>
+    <testcase classname="Login Mock Tests Login thất bại" name="Login Mock Tests Login thất bại" time="0.039">
+    </testcase>
+  </testsuite>
+  <testsuite name="ProductService Mock Tests - Full CRUD" errors="0" failures="0" skipped="0" timestamp="2025-11-24T00:28:54" time="0.875" tests="10">
+    <testcase classname="ProductService Mock Tests - Full CRUD getAllProducts success" name="ProductService Mock Tests - Full CRUD getAllProducts success" time="0.042">
+    </testcase>
+    <testcase classname="ProductService Mock Tests - Full CRUD getAllProducts failure" name="ProductService Mock Tests - Full CRUD getAllProducts failure" time="0.028">
+    </testcase>
+    <testcase classname="ProductService Mock Tests - Full CRUD getProduct success" name="ProductService Mock Tests - Full CRUD getProduct success" time="0.001">
+    </testcase>
+    <testcase classname="ProductService Mock Tests - Full CRUD getProduct failure" name="ProductService Mock Tests - Full CRUD getProduct failure" time="0.007">
+    </testcase>
+    <testcase classname="ProductService Mock Tests - Full CRUD createProduct success" name="ProductService Mock Tests - Full CRUD createProduct success" time="0.001">
+    </testcase>
+    <testcase classname="ProductService Mock Tests - Full CRUD createProduct failure" name="ProductService Mock Tests - Full CRUD createProduct failure" time="0.001">
+    </testcase>
+    <testcase classname="ProductService Mock Tests - Full CRUD updateProduct success" name="ProductService Mock Tests - Full CRUD updateProduct success" time="0">
+    </testcase>
+    <testcase classname="ProductService Mock Tests - Full CRUD updateProduct failure" name="ProductService Mock Tests - Full CRUD updateProduct failure" time="0">
+    </testcase>
+    <testcase classname="ProductService Mock Tests - Full CRUD deleteProduct success" name="ProductService Mock Tests - Full CRUD deleteProduct success" time="0.001">
+    </testcase>
+    <testcase classname="ProductService Mock Tests - Full CRUD deleteProduct failure" name="ProductService Mock Tests - Full CRUD deleteProduct failure" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="Login component" errors="0" failures="0" skipped="0" timestamp="2025-11-24T00:28:54" time="0.942" tests="4">
+    <testcase classname="Login component renders inputs and submit button" name="Login component renders inputs and submit button" time="0.063">
+    </testcase>
+    <testcase classname="Login component shows validation errors and does not call API" name="Login component shows validation errors and does not call API" time="0.039">
+    </testcase>
+    <testcase classname="Login component successful login: stores token and navigates" name="Login component successful login: stores token and navigates" time="0.017">
+    </testcase>
+    <testcase classname="Login component shows server error message on failed login" name="Login component shows server error message on failed login" time="0.014">
+    </testcase>
+  </testsuite>
+  <testsuite name="Products form component" errors="0" failures="0" skipped="0" timestamp="2025-11-24T00:28:54" time="1.041" tests="2">
+    <testcase classname="Products form component shows validation errors when submitting empty form" name="Products form component shows validation errors when submitting empty form" time="0.094">
+    </testcase>
+    <testcase classname="Products form component submits valid form and shows success message" name="Products form component submits valid form and shows success message" time="0.042">
+    </testcase>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,59 @@
+name: Login Tests CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-login:
+    runs-on: ubuntu-latest
+
+    steps:
+      #checkout Code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      #setup Node
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      # Install dependencies
+      - name: Install dependencies
+        env:
+          CYPRESS_INSTALL_BINARY: 0
+        run: |
+          cd frontend
+          npm ci
+        #Cypress Installation
+      - name: Install Cypress
+        run: |
+          cd frontend
+          npx cypress install
+      # Run Login Unit Tests
+
+      - name: Run Login Unit Tests
+        run: |
+          cd frontend
+          npm run test:login
+      # Start frontend
+      - name: Start frontend
+        run: |
+          cd frontend
+          npm ci
+          npm run dev &   # chạy Vite server ở background
+          npx wait-on http://localhost:5173
+
+        # Run Login E2E Tests
+      - name: Run Login E2E Tests
+        run: |
+          cd frontend
+          npx cypress run --spec "cypress/e2e/login.cy.js"
+        # Upload Cypress test results
+      - name: Upload Cypress test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-test-report
+          path: frontend/cypress/videos/
