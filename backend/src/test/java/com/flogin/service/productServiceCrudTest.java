@@ -1,9 +1,12 @@
-package com.flogin.productcrup;
+package com.flogin.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -23,7 +26,7 @@ import com.flogin.repository.ProductRepository;
 import com.flogin.service.ProductService;
 
 @DisplayName(" Product Service Unit Tests CRUP")
-public class produvtServiceCrupTest {
+public class productServiceCrudTest {
     @Mock
     private ProductRepository productRepository;
 
@@ -37,20 +40,32 @@ public class produvtServiceCrupTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
 
-        product = new Product(1L, "Laptop X1", "High-spec laptop", 1500.0, 10, "Electronics");
+        product = new Product(
+                1L,
+                "Trứng chiên hành",
+                "Món chiên dân dã",
+                110000.0,
+                10,
+                "Món chiên");
 
         productRequest = new ProductRequest();
-        productRequest.setName("Laptop X1");
-        productRequest.setDescription("High-spec laptop");
-        productRequest.setPrice(1500.0);
+        productRequest.setName("Trứng chiên hành");
+        productRequest.setDescription("Món chiên dân dã");
+        productRequest.setPrice(110000.0);
         productRequest.setQuantity(10);
-        productRequest.setCategory("Electronics");
+        productRequest.setCategory("Món chiên");
     }
 
     @Test
-    @DisplayName(" TC1a : Tao san pham moi thanh cong ")
+    @DisplayName("TC1a: Tạo món ăn mới thành công")
     void testCreateProduct() {
-        Product savedProduct = new Product(2L, "Smartphone Y2", "New phone", 1000.0, 5, "Electronics");
+        Product savedProduct = new Product(
+                2L,
+                "Bún Chả",
+                "Bún chả Hà Nội",
+                45000.0,
+                15,
+                "Món nướng");
 
         when(productRepository.save(any(Product.class))).thenReturn(savedProduct);
 
@@ -58,13 +73,13 @@ public class produvtServiceCrupTest {
 
         assertNotNull(result);
         assertEquals(2L, result.getId());
-        assertEquals("Smartphone Y2", result.getName());
+        assertEquals("Bún Chả", result.getName());
 
         verify(productRepository, times(1)).save(any(Product.class));
     }
 
     @Test
-    @DisplayName(" TC2a : doc san pham thanh cong ")
+    @DisplayName("TC2a: Đọc món ăn thành công")
     void testGetProduct() {
         Long productID = 1L;
         when(productRepository.findById(productID)).thenReturn(Optional.of(product));
@@ -74,23 +89,29 @@ public class produvtServiceCrupTest {
         assertEquals(productID, result.getId());
 
         verify(productRepository, times(1)).findById(productID);
-
     }
 
     @Test
-    @DisplayName(" TC3a : cap nhat san pham thanh cong ")
+    @DisplayName("TC3a: Cập nhật món ăn thành công")
     void testUpdateProduct() {
         Long productId = 1L;
 
         ProductRequest updateRequest = new ProductRequest();
-        updateRequest.setName("Updated Laptop");
-        updateRequest.setPrice(3000.0);
-        updateRequest.setQuantity(5);
-        updateRequest.setCategory("Premium");
-        updateRequest.setDescription("New description");
+        updateRequest.setName("Cơm Gà");
+        updateRequest.setPrice(60000.0);
+        updateRequest.setQuantity(10);
+        updateRequest.setCategory("Món cơm");
+        updateRequest.setDescription("Cơm gà chiên giòn");
 
-        Product updateProduct = new Product(productId, "Update Laptop", "New description", 3000.0, 5, "Premium");
+        Product updateProduct = new Product(
+                productId,
+                "Cơm Gà",
+                "Cơm gà chiên giòn",
+                60000.0,
+                10,
+                "Món cơm");
 
+        when(productRepository.existsById(productId)).thenReturn(true);
         when(productRepository.findById(productId)).thenReturn(Optional.of(product));
         when(productRepository.save(any(Product.class))).thenReturn(updateProduct);
 
@@ -98,81 +119,91 @@ public class produvtServiceCrupTest {
 
         assertNotNull(result);
         assertEquals(productId, result.getId());
-        assertEquals("Update Laptop", result.getName());
-        assertEquals(3000.0, result.getPrice());
-        assertEquals(5, result.getQuantity());
+        assertEquals("Cơm Gà", result.getName());
+        assertEquals(60000.0, result.getPrice());
+        assertEquals(10, result.getQuantity());
 
         verify(productRepository, times(1)).findById(productId);
         verify(productRepository, times(1)).save(any(Product.class));
-
     }
 
     @Test
-    @DisplayName(" TC4a : xoa san pham thanh cong ")
+    @DisplayName("TC4a: Xóa món ăn thành công")
     void testDeleteProduct() {
         Long productId = 1L;
 
+        when(productRepository.existsById(productId)).thenReturn(true);
         when(productRepository.findById(productId)).thenReturn(Optional.of(product));
 
         productService.deleteProduct(productId);
 
-        verify(productRepository, times(1)).findById(productId);
-        verify(productRepository, times(1)).delete(product);
+        verify(productRepository, times(1)).existsById(productId);
+        verify(productRepository, times(1)).deleteById(productId);
     }
 
     @Test
-    @DisplayName(" TC1b : Tao san pham moi that bai ")
+    @DisplayName("TC1b: Tạo món ăn mới thất bại")
     void testCreateProductFail() {
+
         when(productRepository.save(any(Product.class))).thenThrow(new RuntimeException("DB error"));
 
-        try {
-            productService.createProduct(productRequest);
-        } catch (Exception e) {
-            assertEquals("DB error", e.getMessage());
-        }
+        Exception e = assertThrows(RuntimeException.class, () -> productService.createProduct(productRequest));
+        assertEquals("DB error", e.getMessage());
 
         verify(productRepository, times(1)).save(any(Product.class));
+
     }
 
     @Test
-    @DisplayName(" TC2b : doc san pham that bai ")
+
+    @DisplayName("TC2b: Đọc món ăn thất bại")
     void testGetProductFail() {
         Long productId = 99L;
 
         when(productRepository.findById(productId)).thenReturn(Optional.empty());
 
-        Product result = productService.getProduct(productId);
+        assertThrows(RuntimeException.class, () -> {
+            productService.getProduct(productId);
+        });
 
-        assertNull(result);
         verify(productRepository, times(1)).findById(productId);
     }
 
     @Test
-    @DisplayName(" TC3b : cap nhat san pham that bai ")
+
+    @DisplayName("TC3b: Cập nhật món ăn thất bại")
     void testUpdateProductFail() {
         Long productId = 99L;
 
         ProductRequest updateRequest = new ProductRequest();
-        updateRequest.setName("New Name");
+        updateRequest.setName("Bánh Mì");
 
-        when(productRepository.findById(productId)).thenReturn(Optional.empty());
+        when(productRepository.existsById(productId)).thenReturn(false);
 
-        Product result = productService.updateProduct(productId, updateRequest);
+        assertThrows(RuntimeException.class, () -> {
+            productService.updateProduct(productId, updateRequest);
+        });
 
-        assertNull(result);
-        verify(productRepository, times(1)).findById(productId);
+        verify(productRepository, times(1)).existsById(productId);
+        verify(productRepository, never()).findById(anyLong());
+        verify(productRepository, never()).save(any());
     }
 
     @Test
-    @DisplayName(" TC4b : xoa san pham that bai ")
+
+    @DisplayName("TC4b: Xóa món ăn thất bại")
     void testDeleteProductFail() {
         Long productId = 99L;
 
-        when(productRepository.findById(productId)).thenReturn(Optional.empty());
+        when(productRepository.existsById(productId)).thenReturn(false);
 
-        productService.deleteProduct(productId);
+        assertThrows(RuntimeException.class, () -> {
+            productService.deleteProduct(productId);
+        });
 
-        verify(productRepository, times(1)).findById(productId);
-        verify(productRepository, times(0)).delete(any(Product.class));
+        verify(productRepository, times(1)).existsById(productId);
+        verify(productRepository, times(0)).deleteById(productId);
+        verify(productRepository, never()).findById(anyLong());
     }
+
 }
