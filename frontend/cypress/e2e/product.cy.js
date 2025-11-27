@@ -5,11 +5,10 @@ const productPage = new ProductPage();
 describe('Product E2E Tests', () => {
   const product = {
       id: 1,
-      name: "Cơm tấm sườn",
-      description: "Cơm tấm sườn bì chả",
-      price: 55,
-      quantity: 20,
-      category: "Món chính",  
+      name: "Pizza",
+      description: "Delicious pizza",
+      price: 120,
+      quantity: 10,
   };
 
 //   beforeEach(() => {
