@@ -11,6 +11,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -204,6 +206,30 @@ public class productServiceCrudTest {
         verify(productRepository, times(1)).existsById(productId);
         verify(productRepository, times(0)).deleteById(productId);
         verify(productRepository, never()).findById(anyLong());
+    }
+
+    @Test
+    @DisplayName("TC5a: Lấy danh sách sản phẩm thành công (Có dữ liệu)")
+    void testGetAllProductsSuccess() {
+        Product p2 = new Product(
+                2L,
+                "Bún Chả",
+                "Bún chả Hà Nội",
+                45000.0,
+                15,
+                "Món nướng");
+
+        List<Product> mockProducts = Arrays.asList(product, p2);
+
+        when(productRepository.findAll()).thenReturn(mockProducts);
+
+        List<Product> result = productService.getAllProducts();
+
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        assertEquals("Trứng chiên hành", result.get(0).getName());
+        assertEquals("Bún Chả", result.get(1).getName());
+        verify(productRepository, times(1)).findAll();
     }
 
 }
