@@ -3,7 +3,6 @@ package com.flogin.service;
 import com.flogin.dto.LoginRequest;
 import com.flogin.dto.LoginResponse;
 import com.flogin.security.JwtTokenUtil;
-import com.flogin.service.AuthServiceImpl;
 import com.flogin.repository.UserRepository;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -21,6 +20,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 public class authServiceTest {
@@ -78,7 +78,7 @@ public class authServiceTest {
     @DisplayName("TC2: Username chứa ký tự đặc biệt")
     void testLoginWrongUsername() {
 
-        LoginRequest req = new LoginRequest("wrong user!", "Pass123");
+        LoginRequest req = new LoginRequest("wronguser!", "Pass123");
 
         RuntimeException ex = assertThrows(RuntimeException.class,
                 () -> authService.login(req));
@@ -109,4 +109,68 @@ public class authServiceTest {
 
         assertEquals("Vui lòng nhập tên đăng nhập", ex.getMessage());
     }
+
+    @Test
+    @DisplayName("TC5: Username trống")
+    void testLogin_EmptyFields2() {
+
+        LoginRequest req = new LoginRequest("admin", "");
+
+        RuntimeException ex = assertThrows(RuntimeException.class,
+                () -> authService.login(req));
+
+        assertEquals("Vui lòng nhập mật khẩu", ex.getMessage());
+    }
+
+    @Test
+    @DisplayName("TC6: Username chứa khoảng trắng")
+    void testLoginWrongUsername2() {
+
+        LoginRequest req = new LoginRequest("wrong user", "admin123");
+
+        RuntimeException ex = assertThrows(RuntimeException.class,
+                () -> authService.login(req));
+
+        assertTrue(ex.getMessage().contains("Tên đăng nhập không được chứa khoảng trắng"));
+    }
+
+    @Test
+    @DisplayName("TC7: Username quá ngắn")
+    void testLoginWrongUsername3() {
+
+        LoginRequest req = new LoginRequest("1", "admin123");
+
+        RuntimeException ex = assertThrows(RuntimeException.class,
+                () -> authService.login(req));
+
+        assertTrue(ex.getMessage().contains("Username quá ngắn"));
+    }
+
+    @Test
+    @DisplayName("TC8: Username quá dài")
+    void testLoginWrongUsername4() {
+
+        LoginRequest req = new LoginRequest(
+                "1123213213213213213213213123213213232321321323213232132122222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222",
+                "admin123");
+
+        RuntimeException ex = assertThrows(RuntimeException.class,
+                () -> authService.login(req));
+
+        assertTrue(ex.getMessage().contains("Username quá dài"));
+    }
+
+    @Test
+    @DisplayName("TC9: Password sai định dạng")
+    void testLoginWrongPassword2() {
+
+        LoginRequest req = new LoginRequest("user123",
+                "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
+
+        RuntimeException ex = assertThrows(RuntimeException.class,
+                () -> authService.login(req));
+
+        assertTrue(ex.getMessage().contains("Mật khẩu quá dài"));
+    }
+
 }
