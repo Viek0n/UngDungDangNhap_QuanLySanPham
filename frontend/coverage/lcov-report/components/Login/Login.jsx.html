@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.75% </span>
+                <span class="strong">84.37% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>30/32</span>
+                <span class='fraction'>27/32</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">62.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>14/16</span>
+                <span class='fraction'>10/16</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.42% </span>
+                <span class="strong">89.28% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>27/28</span>
+                <span class='fraction'>25/28</span>
             </div>
         
             
@@ -166,50 +166,50 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -280,9 +280,9 @@ function Login({ onLogin }) {
     setError('');
 &nbsp;
     const { isValid, errors } = validateLoginForm(credentials.username, credentials.password);
-    if (!isValid) {
-      setFieldErrors(errors);
-      return;
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!isValid) {
+<span class="cstat-no" title="statement not covered" >      setFieldErrors(errors);</span>
+<span class="cstat-no" title="statement not covered" >      return;</span>
     }
 &nbsp;
     setIsSubmitting(true);
@@ -292,7 +292,7 @@ function Login({ onLogin }) {
 &nbsp;
       if (response?.token) {
         localStorage.setItem('token', response.token);
-        if (typeof onLogin === 'function') onLogin();
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof onLogin === 'function') <span class="cstat-no" title="statement not covered" >onLogin();</span>
         navigate('/products');
       } else <span class="missing-if-branch" title="else path not taken" >E</span>{
 <span class="cstat-no" title="statement not covered" >        setError('Tên đăng nhập hoặc mật khẩu không đúng ❌');</span>
@@ -324,7 +324,7 @@ function Login({ onLogin }) {
               autoComplete="username"
               placeholder="Nhập tên đăng nhập..."
             /&gt;
-            {fieldErrors.username &amp;&amp; &lt;div className="field-error"&gt;{fieldErrors.username}&lt;/div&gt;}
+            {fieldErrors.username &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;div className="field-error"&gt;{fieldErrors.username}&lt;/div&gt;}</span>
           &lt;/div&gt;
 &nbsp;
           &lt;div className="form-group"&gt;
@@ -338,7 +338,7 @@ function Login({ onLogin }) {
               autoComplete="current-password"
               placeholder="Nhập mật khẩu..."
             /&gt;
-            {fieldErrors.password &amp;&amp; &lt;div className="field-error"&gt;{fieldErrors.password}&lt;/div&gt;}
+            {fieldErrors.password &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;div className="field-error"&gt;{fieldErrors.password}&lt;/div&gt;}</span>
           &lt;/div&gt;
 &nbsp;
           &lt;button type="submit" className="btn-primary" disabled={isSubmitting}&gt;
@@ -358,7 +358,7 @@ export default Login;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-11-28T02:20:12.717Z
+                at 2025-11-28T03:14:47.451Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

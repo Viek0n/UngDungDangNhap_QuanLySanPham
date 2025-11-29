@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../../services/api'; // dùng authService
 import './Login.css';
-import { validateLoginForm } from '../../utils/validation';
+import { validateLoginForm } from '../../utils/validateLogin';
 
 function Login({ onLogin }) {
   const navigate = useNavigate();

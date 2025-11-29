@@ -1,4 +1,4 @@
-import { validateLoginForm } from '../utils/validation';
+import { validateLoginForm } from '../utils/validateLogin';
 
 describe('validateLoginForm', () => {
   test('should return error when username is empty', () => {

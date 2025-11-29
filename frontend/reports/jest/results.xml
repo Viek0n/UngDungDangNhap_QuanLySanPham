@@ -1,23 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="9" failures="0" errors="0" time="3.41">
-  <testsuite name="validateProductForm" errors="0" failures="0" skipped="0" timestamp="2025-11-28T02:21:27" time="1.487" tests="9">
-    <testcase classname="validateProductForm name validation - empty" name="validateProductForm name validation - empty" time="0.006">
-    </testcase>
-    <testcase classname="validateProductForm name validation - too short and too long" name="validateProductForm name validation - too short and too long" time="0.004">
-    </testcase>
-    <testcase classname="validateProductForm price boundary tests" name="validateProductForm price boundary tests" time="0.004">
-    </testcase>
-    <testcase classname="validateProductForm price non-numeric and empty" name="validateProductForm price non-numeric and empty" time="0.001">
-    </testcase>
-    <testcase classname="validateProductForm quantity boundary tests" name="validateProductForm quantity boundary tests" time="0.001">
-    </testcase>
-    <testcase classname="validateProductForm quantity non-numeric and empty" name="validateProductForm quantity non-numeric and empty" time="0.001">
-    </testcase>
-    <testcase classname="validateProductForm description length validation" name="validateProductForm description length validation" time="0.001">
-    </testcase>
-    <testcase classname="validateProductForm category validation" name="validateProductForm category validation" time="0.001">
-    </testcase>
-    <testcase classname="validateProductForm valid product returns no errors" name="validateProductForm valid product returns no errors" time="0">
+<testsuites name="jest tests" tests="1" failures="0" errors="0" time="11.299">
+  <testsuite name="ProductPage Integration Test" errors="0" failures="0" skipped="0" timestamp="2025-11-29T08:35:17" time="4.551" tests="1">
+    <testcase classname="ProductPage Integration Test should create a new product successfully" name="ProductPage Integration Test should create a new product successfully" time="0.701">
     </testcase>
   </testsuite>
 </testsuites>

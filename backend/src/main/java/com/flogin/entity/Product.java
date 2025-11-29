@@ -20,6 +20,14 @@ public class Product {
     private String category;
 
     // Constructors
+    public Product(String name, String description, Double price, Integer quantity, String category) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
+        this.category = category;
+    }
+    
     public Product() {
     }
 

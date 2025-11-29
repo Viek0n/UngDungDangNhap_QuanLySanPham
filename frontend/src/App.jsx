@@ -26,7 +26,7 @@ function App() {
       <div className="app">
         {isAuthenticated && (
           <nav className="navbar">
-            <button onClick={handleLogout} className="logout-btn">Logout</button>
+            <button onClick={handleLogout} className="logout-btn" data-cy={`logout-btn`}>Đăng xuất</button>
           </nav>
         )}
         <Routes>

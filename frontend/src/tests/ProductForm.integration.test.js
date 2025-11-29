@@ -1,12 +1,12 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor, act } from "@testing-library/react";
 import ProductPage from "../components/Products/Products";
-import * as api from "../services/api";
+import { productService } from "../services/api";
 //npm test -- ProductForm.integration.test.js
 jest.mock("../services/api");
 describe("ProductPage Integration Test", () => {
   const sampleProduct = {
-      id: 1,
+      id: 100,
       name: "Cơm tấm sườn",
       description: "Cơm tấm sườn bì chả",
       price: 55,
@@ -19,9 +19,15 @@ describe("ProductPage Integration Test", () => {
   });
 
   test("should create a new product successfully", async () => {
-    api.productService.createProduct.mockResolvedValue({ ...sampleProduct, id: 100 });
+    productService.getAllProducts.mockResolvedValue([]);
+    productService.createProduct.mockResolvedValue({ ...sampleProduct, id: 100 });
 
-    render(<ProductPage />);
+    await act(async () => {
+          render(<ProductPage />);
+    });
+    fireEvent.click(screen.getByTestId("create-btn"));
+
+    await waitFor(() => screen.getByLabelText(/Tên sản phẩm/i));
     fireEvent.change(screen.getByLabelText(/Tên sản phẩm/i), {
       target: { value: "test" },
     });
@@ -38,10 +44,10 @@ describe("ProductPage Integration Test", () => {
       target: { value: "Món chính" },
     });
 
-    fireEvent.click(screen.getByRole("button", { name: /Thêm sản phẩm/i }));
+    fireEvent.click(screen.getByRole("button", { name: /Thêm/i }));
 
     await waitFor(() => {
-      expect(api.productService.createProduct).toHaveBeenCalledTimes(1);
+      expect(productService.createProduct).toHaveBeenCalledTimes(1);
     });
   });
 });

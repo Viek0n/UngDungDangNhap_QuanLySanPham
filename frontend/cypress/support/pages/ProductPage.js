@@ -3,29 +3,18 @@ class ProductPage {
     cy.visit("/products"); 
   }
 
-  // Form Fields
-  getNameInput() { 
-    return cy.get('form.product-form input[name="name"]'); 
-  }
-  getPriceInput() { 
-    return cy.get('form.product-form input[name="price"]'); 
-  }
-  getQuantityInput() { 
-    return cy.get('form.product-form input[name="quantity"]'); 
-  }
-  getDescriptionInput() { 
-    return cy.get('form.product-form textarea[name="description"]'); 
-  }
-  getCategorySelect() { 
-    return cy.get('form.product-form select[name="category"]'); 
-  }
-  getAddButton() { 
-    return cy.get('form.product-form button[type="submit"]'); 
-  }
-
   // Modal
   getModal() { 
     return cy.get('[data-cy="product-modal"]'); 
+  }
+  getModalName(){
+    return cy.get('[data-cy="modal-name"]');
+  }
+  getModalCategory(){
+    return cy.get('[data-cy="modal-category"]');
+  }
+  getModalDescription(){
+    return cy.get('[data-cy="modal-description"]');
   }
   getModalPriceInput() { 
     return cy.get('[data-cy="modal-price"]'); 
@@ -37,6 +26,10 @@ class ProductPage {
     return cy.get('[data-cy="modal-save"]'); 
   }
 
+  //Logout buttons
+  getLogoutButton(){
+    return cy.get('[data-cy="logout-btn"]');
+  }
   // CRUD buttons
   getEditButton(productName) {
     return this.getProductCardByName(productName).find(".edit-btn");
@@ -44,7 +37,9 @@ class ProductPage {
   getDeleteButton(productName) {
     return this.getProductCardByName(productName).find(".delete-btn");
   }
-
+  getCreateButton() {
+    return cy.get('[data-cy="create-btn"]');
+  }
   //Search và Filter
   getSearchInput() { 
     return cy.get('input[data-cy="search-input"]'); 

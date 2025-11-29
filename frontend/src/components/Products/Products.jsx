@@ -1,156 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Products.css";
 import ProductModal from "./ProductModal";
-import { validateProductForm } from "../../utils/validation";
+import { validateProductForm } from "../../utils/validateProduct";
 import { productService } from "../../services/api";
 
 export default function Products() {
-  const [products, setProducts] = useState([
-    // Món chính
-    {
-      id: 1,
-      name: "Pizza",
-      description: "Delicious pizza",
-      price: 120,
-      quantity: 10,
-      category: "Món chính",
-    },
-    {
-      id: 2,
-      name: "Bánh kem",
-      description: "Bánh kem ngon",
-      price: 80,
-      quantity: 5,
-      category: "Tráng miệng",
-    },
-    {
-      id: 3,
-      name: "Gà rán",
-      description: "Gà rán giòn cay",
-      price: 65,
-      quantity: 18,
-      category: "Món chính",
-    },
-
-    // Tráng miệng
-    {
-      id: 4,
-      name: "Bánh flan",
-      description: "Flan caramel mềm mịn",
-      price: 20,
-      quantity: 12,
-      category: "Tráng miệng",
-    },
-    {
-      id: 5,
-      name: "Chè khúc bạch",
-      description: "Chè khúc bạch thơm mát",
-      price: 28,
-      quantity: 14,
-      category: "Tráng miệng",
-    },
-    {
-      id: 6,
-      name: "Kem dừa",
-      description: "Kem dừa tươi béo nhẹ",
-      price: 22,
-      quantity: 10,
-      category: "Tráng miệng",
-    },
-    {
-      id: 7,
-      name: "Bánh su kem",
-      description: "Su kem mềm béo",
-      price: 18,
-      quantity: 16,
-      category: "Tráng miệng",
-    },
-
-    // Đồ uống
-    {
-      id: 8,
-      name: "Trà đào",
-      description: "Trà đào miếng thơm mát",
-      price: 30,
-      quantity: 25,
-      category: "Đồ uống",
-    },
-    {
-      id: 9,
-      name: "Nước cam",
-      description: "Nước cam nguyên chất",
-      price: 32,
-      quantity: 20,
-      category: "Đồ uống",
-    },
-    {
-      id: 10,
-      name: "Sinh tố xoài",
-      description: "Sinh tố xoài tươi",
-      price: 35,
-      quantity: 15,
-      category: "Đồ uống",
-    },
-    {
-      id: 11,
-      name: "Soda bạc hà",
-      description: "Soda vị bạc hà mát lạnh",
-      price: 28,
-      quantity: 18,
-      category: "Đồ uống",
-    },
-
-    // Khai vị
-    {
-      id: 12,
-      name: "Khoai tây chiên",
-      description: "Khoai chiên giòn rụm",
-      price: 25,
-      quantity: 22,
-      category: "Khai vị",
-    },
-    {
-      id: 13,
-      name: "Gỏi cuốn",
-      description: "Gỏi cuốn tôm thịt",
-      price: 30,
-      quantity: 12,
-      category: "Khai vị",
-    },
-    {
-      id: 14,
-      name: "Súp ngô",
-      description: "Súp ngô kem ngọt",
-      price: 27,
-      quantity: 10,
-      category: "Khai vị",
-    },
-    {
-      id: 15,
-      name: "Bánh mì bơ tỏi",
-      description: "Bánh mì nướng bơ tỏi thơm",
-      price: 22,
-      quantity: 14,
-      category: "Khai vị",
-    },
-  ]);
-
-
+  const [products, setProducts] = useState([]);
   const [categories] = useState([
     "Món chính",
     "Tráng miệng",
     "Đồ uống",
     "Khai vị",
   ]);
-
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [form, setForm] = useState({
-    name: "",
-    description: "",
-    price: "",
-    quantity: "",
-    category: "",
-  });
+  const [openForm, setOpenForm] = useState(false);
   const [errors, setErrors] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
   const [filterCategory, setFilterCategory] = useState("");
@@ -158,7 +21,23 @@ export default function Products() {
   const itemsPerPage = 8;
   const [message, setMessage] = useState("");
 
-  const filteredProducts = products
+  useEffect(() => {
+    // Fetch products from the backend
+    const fetchProducts = async () => {
+      try {
+        const response = await productService.getAllProducts(); // make sure this returns a Promise
+        setProducts(response); // assuming response.data contains the array of products
+      } catch (err) {
+        console.error("Error fetching products:", err);
+        setErrors(err);
+      } finally {
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  const filteredProducts = (products || [])
     .filter((p) =>
       p.name.toLowerCase().includes(searchTerm.toLowerCase().trim())
     )
@@ -169,52 +48,17 @@ export default function Products() {
   const currentProducts = filteredProducts.slice(indexOfFirst, indexOfLast);
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const { isValid, errors: validationErrors } = validateProductForm(
-      form,
-      categories
-    );
-    setErrors(validationErrors);
-    if (!isValid) return;
-
-    if (selectedProduct) {
-      await productService.updateProduct(selectedProduct.id, form);
-      setProducts((prev) =>
-        prev.map((p) =>
-          p.id === selectedProduct.id ? { ...form, id: p.id } : p
-        )
-      );
-      setMessage("Cập nhật sản phẩm thành công ❗");
-    } else {
-      await productService.createProduct(form);
-      setProducts((prev) => [...prev, { ...form, id: Date.now() }]);
-      setMessage("Thêm sản phẩm thành công ❗");
-    }
-
-    setForm({
-      name: "",
-      description: "",
-      price: "",
-      quantity: "",
-      category: "",
-    });
+  const handleCreate = () => {
     setSelectedProduct(null);
-    setCurrentPage(totalPages);
+    setOpenForm(true);
   };
 
   const handleEdit = (product) => {
     setSelectedProduct(product);
-    setForm({
-      name: product.name,
-      description: product.description,
-      price: product.price,
-      quantity: product.quantity,
-      category: product.category,
-    });
+    setOpenForm(true);
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     if (window.confirm("Bạn có chắc muốn xoá sản phẩm này không?")) {
       const newProducts = products.filter((p) => p.id !== id);
       setProducts(newProducts);
@@ -223,13 +67,13 @@ export default function Products() {
       if (currentPage > newTotalPages) {
         setCurrentPage(newTotalPages > 0 ? newTotalPages : 1);
       }
-
+      await productService.deleteProduct(id);
       setMessage("Xóa sản phẩm thành công ❗");
       setTimeout(() => setMessage(""), 3000);
     }
   };
 
-  const handleModalSave = (updatedProduct) => {
+  const handleModalSave = async (updatedProduct) => {
     const { isValid, errors: validationErrors } = validateProductForm(
       updatedProduct,
       categories
@@ -238,13 +82,21 @@ export default function Products() {
       setErrors(validationErrors);
       return;
     }
+    
+    if (selectedProduct) {
+      await productService.updateProduct(updatedProduct.id, updatedProduct);
+      setProducts((prev) =>
+        prev.map((p) => (p.id === updatedProduct.id ? updatedProduct : p))
+      );
+      setMessage("Cập nhật sản phẩm thành công ❗");
+    } else {
+      const response = await productService.createProduct(updatedProduct);
+      setProducts((prev) => [...prev, { ...updatedProduct, id: response.id }]);
+      setMessage("Thêm sản phẩm thành công ❗");
+      setCurrentPage(totalPages);
+    }
 
-    setProducts((prev) =>
-      prev.map((p) => (p.id === updatedProduct.id ? updatedProduct : p))
-    );
-
-    setMessage("Cập nhật sản phẩm thành công ❗");
-    setSelectedProduct(null);
+    setOpenForm(false);
     setTimeout(() => setMessage(""), 3000);
   };
 
@@ -258,100 +110,6 @@ export default function Products() {
 
   return (
     <div className="products-container">
-      <form className="product-form" onSubmit={handleSubmit}>
-        <h2>Thêm / Sửa Sản Phẩm</h2>
-
-        <div className="form-row">
-          <div className={`form-group ${errors.name ? "has-error" : ""}`}>
-            <label>Tên sản phẩm
-            <input
-              name="name"
-              value={form.name}
-              data-cy="product-name"
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
-              placeholder="Nhập tên sản phẩm..."
-            /></label>
-            {errors.name && <div className="field-error">{errors.name}</div>}
-          </div>
-
-          <div className={`form-group ${errors.category ? "has-error" : ""}`}>
-            <label>Danh mục
-            <select
-              name="category"
-              className="food-select"
-              data-cy="product-category"
-              value={form.category}
-              onChange={(e) => setForm({ ...form, category: e.target.value })}
-            >
-              <option value="">-- Chọn danh mục --</option>
-              {categories.map((c, i) => (
-                <option key={i} value={c}>
-                  {c}
-                </option>
-              ))}
-            </select></label>
-            {errors.category && (
-              <div className="field-error">{errors.category}</div>
-            )}
-          </div>
-        </div>
-
-        <div className="form-row">
-          <div className={`form-group ${errors.price ? "has-error" : ""}`}>
-            <label>Giá
-            <input
-              name="price"
-              type="number"
-              value={form.price}
-              data-cy="product-price"
-              onChange={(e) => setForm({ ...form, price: e.target.value })}
-              placeholder="Nhập giá..."
-              className="price-input"
-            /></label>
-            {errors.price && <div className="field-error">{errors.price}</div>}
-          </div>
-
-          <div className={`form-group ${errors.quantity ? "has-error" : ""}`}>
-            <label>Số lượng
-            <input
-              name="quantity"
-              type="number"
-              value={form.quantity}
-              data-cy="product-quantity"
-              onChange={(e) => setForm({ ...form, quantity: e.target.value })}
-              placeholder="Nhập số lượng..."
-              className="price-input"
-            /></label>
-            {errors.quantity && (
-              <div className="field-error">{errors.quantity}</div>
-            )}
-          </div>
-        </div>
-
-        <div className="form-group">
-          <label>Mô tả
-          <textarea
-            name="description"
-            className="food-description"
-            value={form.description}
-            data-cy="product-description"
-            onChange={(e) =>
-              setForm({ ...form, description: e.target.value })
-            }
-            placeholder="Mô tả sản phẩm (tùy chọn)..."
-          /></label>
-          {errors.description && (
-            <div className="field-error">{errors.description}</div>
-          )}
-        </div>
-
-        <div className="form-actions">
-          <button type="submit" className="submit-btn" data-cy="submit-btn">
-            {selectedProduct ? "Cập nhật" : "Thêm sản phẩm"}
-          </button>
-        </div>
-      </form>
-
       {message && <div className="success-message">{message}</div>}
 
       <div className="form-row" style={{ marginBottom: "1rem" }}>
@@ -396,6 +154,7 @@ export default function Products() {
                   <button
                     className="edit-btn"
                     data-cy={`edit-btn-${p.id}`}
+                    data-testid={`edit-btn-${p.id}`}
                     onClick={() => handleEdit(p)}
                   >
                     Sửa
@@ -403,6 +162,7 @@ export default function Products() {
                   <button
                     className="delete-btn"
                     data-cy={`delete-btn-${p.id}`}
+                    data-testid={`delete-btn-${p.id}`}
                     onClick={() => handleDelete(p.id)}
                   >
                     Xoá
@@ -428,14 +188,20 @@ export default function Products() {
         </div>
       )}
 
-      {selectedProduct && (
+      {openForm && (
         <ProductModal
           product={selectedProduct}
-          onClose={() => setSelectedProduct(null)}
+          onClose={() => {setSelectedProduct(null); setOpenForm(false)}}
           onSave={handleModalSave}
           categories={categories}
         />
       )}
+      <button 
+        className="create-btn" 
+        onClick={() => handleCreate()}
+        data-testid={`create-btn`}
+        data-cy={`create-btn`}
+        >+</button>
     </div>
   );
 }

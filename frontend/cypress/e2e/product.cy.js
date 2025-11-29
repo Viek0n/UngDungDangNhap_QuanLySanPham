@@ -50,6 +50,24 @@ describe('Product E2E Tests', () => {
       body: [{ ...product, id: 1 }],
     }).as('getProducts');
 
+    cy.intercept(
+      {
+        method: "PUT",
+        url: "/api/products/*",
+        headers: {
+          Authorization: "Bearer fake-jwt-token"
+        }
+      },
+      {
+        statusCode: 200,
+        body: { ...product, name: "Updated" },
+      }
+    ).as("updateProduct");
+  
+    cy.intercept("DELETE", "/api/products/*", {
+      statusCode: 200,
+      body: {},
+    }).as("deleteProduct");
     // "Login" by setting localStorage
     cy.window().then((win) => {
       win.localStorage.setItem('token', 'fake-jwt-token');
@@ -66,13 +84,16 @@ describe('Product E2E Tests', () => {
   it('Thêm sản phẩm mới thành công', () => {
     const newProduct = { ...product, name: 'Burger' };
 
-    productPage.getNameInput().type(newProduct.name);
-    productPage.getPriceInput().type(newProduct.price.toString());
-    productPage.getQuantityInput().type(newProduct.quantity.toString());
-    productPage.getDescriptionInput().type(newProduct.description);
-    productPage.getCategorySelect().select(newProduct.category);
+    productPage.getCreateButton().click();
+    productPage.getModal().should('be.visible');
 
-    productPage.getAddButton().click();
+    productPage.getModalName().clear().type(newProduct.name)
+    productPage.getModalPriceInput().type(newProduct.price.toString());
+    productPage.getModalQuantityInput().type(newProduct.quantity.toString());
+    productPage.getModalCategory().select(newProduct.category);
+    productPage.getModalDescription().type(newProduct.description);
+
+    productPage.getModalSaveButton().click();
 
     productPage.getSuccessMessage()
       .should('contain', 'Thêm sản phẩm thành công ❗');
@@ -82,7 +103,8 @@ describe('Product E2E Tests', () => {
 
   // Validation 
   it('Hiển thị validation messages khi nhập thiếu thông tin', () => {
-    productPage.getAddButton().click();
+    productPage.getCreateButton().click();
+    productPage.getModalSaveButton().click();
 
     productPage.getFieldError('name').should('contain', 'Tên sản phẩm không được để trống ❗');
     productPage.getFieldError('price').should('contain', 'Giá không được để trống ❗');
@@ -150,11 +172,7 @@ describe('Product E2E Tests', () => {
 
   // Visibility 
   it('Các ô nhập và nút thao tác có thể thấy và tương tác', () => {
-    productPage.getNameInput().should('be.visible');
-    productPage.getPriceInput().should('be.visible');
-    productPage.getQuantityInput().should('be.visible');
-    productPage.getDescriptionInput().should('be.visible');
-    productPage.getCategorySelect().should('be.visible');
-    productPage.getAddButton().should('be.visible');
+    productPage.getCreateButton().should('be.visible');
+    productPage.getLogoutButton().should('be.visible');
   });
 });

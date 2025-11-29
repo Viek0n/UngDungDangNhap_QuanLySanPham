@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './Products.css';
-import { validateProductForm } from "../../utils/validation";
+import { validateProductForm } from '../../utils/validateProduct';
+import { productService } from "../../services/api";
 
-export default function ProductModal({ product, onClose, onSave, categories }) {
+export default function ProductModal({product, onClose, onSave, categories }) {
   const [form, setForm] = useState({
     name: '',
     description: '',
@@ -26,18 +27,21 @@ export default function ProductModal({ product, onClose, onSave, categories }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+    setForm((prev) => ({
+      ...prev,
+      [name]: name === "price" || name === "quantity" ? Number(value) : value,
+    }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { isValid, errors: validationErrors } = validateProductForm(form, categories);
     setErrors(validationErrors);
     if (!isValid) return;
-    onSave({ ...product, ...form });
+    const updatedProduct = { ...product, ...form }
+    onSave(updatedProduct);
   };
 
-  if (!product) return null;
 
   return (
     <div className="modal-backdrop" data-cy="product-modal">
@@ -45,7 +49,7 @@ export default function ProductModal({ product, onClose, onSave, categories }) {
         <button className="modal-close" onClick={onClose} data-cy="modal-close">
           ×
         </button>
-        <h3>Cập nhật sản phẩm</h3>
+        <h3>{product ? "Cập nhật sản phẩm" : "Thêm sản phẩm"}</h3>
 
         <form className="modal-form" onSubmit={handleSubmit}>
           <label>Tên sản phẩm
@@ -54,8 +58,9 @@ export default function ProductModal({ product, onClose, onSave, categories }) {
             value={form.name}
             onChange={handleChange}
             data-cy="modal-name"
+            data-testid="modal-name"
           /></label>
-          {errors.name && <div className="field-error" data-cy="modal-error-name">{errors.name}</div>}
+          {errors.name && <div className="field-error" data-cy="modal-error-name" data-testid="modal-error-name">{errors.name}</div>}
 
           <label>Danh mục
           <select
@@ -63,6 +68,7 @@ export default function ProductModal({ product, onClose, onSave, categories }) {
             value={form.category}
             onChange={handleChange}
             data-cy="modal-category"
+            data-testid="modal-category"
           >
             <option value="">-- Chọn danh mục --</option>
             {categories.map((c, i) => (
@@ -71,7 +77,7 @@ export default function ProductModal({ product, onClose, onSave, categories }) {
               </option>
             ))}
           </select></label>
-          {errors.category && <div className="field-error" data-cy="modal-error-category">{errors.category}</div>}
+          {errors.category && <div className="field-error" data-cy="modal-error-category" data-testid="modal-error-category">{errors.category}</div>}
 
           <label>Giá
           <input
@@ -82,8 +88,9 @@ export default function ProductModal({ product, onClose, onSave, categories }) {
             onChange={handleChange}
             placeholder="Nhập giá..."
             data-cy="modal-price"
+            data-testid="modal-price"
           /></label>
-          {errors.price && <div className="field-error" data-cy="modal-error-price">{errors.price}</div>}
+          {errors.price && <div className="field-error" data-cy="modal-error-price" data-testid="modal-error-price">{errors.price}</div>}
 
           <label>Số lượng
           <input
@@ -93,8 +100,9 @@ export default function ProductModal({ product, onClose, onSave, categories }) {
             onChange={handleChange}
             placeholder="Nhập số lượng..."
             data-cy="modal-quantity"
+            data-testid="modal-quantity"
           /></label>
-          {errors.quantity && <div className="field-error" data-cy="modal-error-quantity">{errors.quantity}</div>}
+          {errors.quantity && <div className="field-error" data-cy="modal-error-quantity" data-testid="modal-error-quantity">{errors.quantity}</div>}
 
           <label>Mô tả
           <textarea
@@ -103,15 +111,17 @@ export default function ProductModal({ product, onClose, onSave, categories }) {
             onChange={handleChange}
             rows="3"
             data-cy="modal-description"
+            data-testid="modal-description"
+
           /></label>
-          {errors.description && <div className="field-error" data-cy="modal-error-description">{errors.description}</div>}
+          {errors.description && <div className="field-error" data-cy="modal-error-description" data-testid="modal-error-description">{errors.description}</div>}
 
           <div className="modal-actions">
-            <button type="button" className="btn-secondary" onClick={onClose} data-cy="modal-cancel">
+            <button type="button" className="btn-secondary" onClick={onClose} data-cy="modal-cancel" data-testid="modal-cancel">
               Hủy
             </button>
-            <button type="submit" className="btn-primary" data-cy="modal-save">
-              Lưu
+            <button type="submit" className="btn-primary" data-cy="modal-save" data-testid="modal-save">
+              {product ? "Lưu":"Thêm"}
             </button>
           </div>
         </form>

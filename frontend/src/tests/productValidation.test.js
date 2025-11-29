@@ -1,4 +1,4 @@
-import { validateProductForm } from '../utils/validation';
+import { validateProductForm } from "../utils/validateProduct";
 
 describe('validateProductForm', () => {
   test('name validation - empty', () => {
