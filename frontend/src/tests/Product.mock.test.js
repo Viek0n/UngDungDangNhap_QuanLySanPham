@@ -102,7 +102,6 @@ describe("Product Component - Mocked ProductService", () => {
       render(<Products />);
     });
 
-    // Simulate edit
     fireEvent.click(screen.getByTestId("edit-btn-1"));
     await waitFor(() => screen.getByLabelText(/Tên sản phẩm/i));
     fireEvent.change(screen.getByTestId("modal-name"), {
