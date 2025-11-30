@@ -1,34 +1,31 @@
 package com.flogin.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 
 import com.flogin.dto.ProductRequest;
 import com.flogin.entity.Product;
 import com.flogin.repository.ProductRepository;
-import com.flogin.service.ProductService;
-
-@DisplayName(" Product Service Unit Tests CRUP")
-public class productServiceCrudTest {
+//mvn test -Dtest=productServiceTest
+@DisplayName(" Product Service Unit Tests CRUD")
+public class productServiceTest {
     @Mock
     private ProductRepository productRepository;
 
@@ -157,7 +154,6 @@ public class productServiceCrudTest {
     }
 
     @Test
-
     @DisplayName("TC2b: Đọc món ăn thất bại")
     void testGetProductFail() {
         Long productId = 99L;
@@ -172,7 +168,6 @@ public class productServiceCrudTest {
     }
 
     @Test
-
     @DisplayName("TC3b: Cập nhật món ăn thất bại")
     void testUpdateProductFail() {
         Long productId = 99L;
@@ -192,7 +187,6 @@ public class productServiceCrudTest {
     }
 
     @Test
-
     @DisplayName("TC4b: Xóa món ăn thất bại")
     void testDeleteProductFail() {
         Long productId = 99L;

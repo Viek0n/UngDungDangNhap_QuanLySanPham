@@ -15,7 +15,7 @@ jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useNavigate: () => mockedUsedNavigate,
 }));
-
+//npm test -- src/tests/Login.mock.test.js --coverage
 // Render with MemoryRouter(cái này để test component dùng react-router), tại lúc không có thì nó lỗi :))) không rõ tại sao
 const renderWithRouter = (ui) => render(<MemoryRouter>{ui}</MemoryRouter>);
 
@@ -58,14 +58,14 @@ describe('Login Mock Tests', () => {
       target: { value: 'wronguser' },
     });
     fireEvent.change(screen.getByPlaceholderText(/nhập mật khẩu/i), {
-      target: { value: 'wrongpass' },
+      target: { value: 'wrongpass1' },
     });
     fireEvent.click(screen.getByText(/đăng nhập 🔐/i));
 
     await waitFor(() => {
       expect(authService.login).toHaveBeenCalledWith({
         username: 'wronguser',
-        password: 'wrongpass',
+        password: 'wrongpass1',
       });
       //kiểm tra result
       expect(screen.getByText(/tên đăng nhập hoặc mật khẩu không đúng/i)).toBeInTheDocument();

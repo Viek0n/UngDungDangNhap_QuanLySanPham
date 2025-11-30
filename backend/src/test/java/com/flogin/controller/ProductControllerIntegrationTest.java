@@ -30,7 +30,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;//print
 
-//mvn -Dtest=ProductControllerIntegrationTest test
 @WebMvcTest(ProductController.class)
 @AutoConfigureMockMvc(addFilters = false)
 @DisplayName("✅ Product API Integration Tests")
@@ -50,7 +49,6 @@ public class ProductControllerIntegrationTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-// -------------------------------------------------------------
     @Test
     @DisplayName("POST /api/products - Tạo sản phẩm mới")
     void testCreateProduct() throws Exception {
@@ -74,7 +72,6 @@ public class ProductControllerIntegrationTest {
                 .andExpect(status().isOk());//isCreated 201
     }
 
-    // -------------------------------------------------------------
     @Test
     @DisplayName("GET /api/products - Lấy danh sách sản phẩm")
     void testGetAllProducts() throws Exception {
@@ -90,7 +87,6 @@ public class ProductControllerIntegrationTest {
                 .andExpect(jsonPath("$[1].name").value("Bánh xèo"));
     }
 
-    // -------------------------------------------------------------
     @Test
     @DisplayName("GET /api/products/{id} - Lấy 1 sản phẩm")
     void testGetOneProduct() throws Exception {
@@ -105,7 +101,6 @@ public class ProductControllerIntegrationTest {
                 .andExpect(jsonPath("$.name").value("Thịt kho tiêu"));
     }
 
-    // -------------------------------------------------------------
     @Test
     @DisplayName("PUT /api/products/{id} - Cập nhật sản phẩm")
     void testUpdateProduct() throws Exception {
@@ -131,7 +126,6 @@ public class ProductControllerIntegrationTest {
                 .andExpect(jsonPath("$.quantity").value(8));
     }
 
-    // -------------------------------------------------------------
     @Test
     @DisplayName("DELETE /api/products/{id} - Xóa sản phẩm")
     void testDeleteProduct() throws Exception {

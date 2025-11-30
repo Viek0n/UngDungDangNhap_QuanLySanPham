@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../../services/api'; // dùng authService
 import './Login.css';
-import { validateLoginForm } from '../../utils/validateLogin';
+import { validateLogin } from '../../utils/validateLogin';
 
 function Login({ onLogin }) {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ function Login({ onLogin }) {
     if (isSubmitting) return;
     setError('');
 
-    const { isValid, errors } = validateLoginForm(credentials.username, credentials.password);
+    const { isValid, errors } = validateLogin(credentials.username, credentials.password);
     if (!isValid) {
       setFieldErrors(errors);
       return;

@@ -1,7 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="1" failures="0" errors="0" time="11.299">
-  <testsuite name="ProductPage Integration Test" errors="0" failures="0" skipped="0" timestamp="2025-11-29T08:35:17" time="4.551" tests="1">
-    <testcase classname="ProductPage Integration Test should create a new product successfully" name="ProductPage Integration Test should create a new product successfully" time="0.701">
+<testsuites name="jest tests" tests="32" failures="0" errors="0" time="10.067">
+  <testsuite name="Product Component - Mocked ProductService" errors="0" failures="0" skipped="0" timestamp="2025-11-30T09:49:31" time="3.944" tests="5">
+    <testcase classname="Product Component - Mocked ProductService Mock: Tạo sản phẩm thành công" name="Product Component - Mocked ProductService Mock: Tạo sản phẩm thành công" time="0.367">
+    </testcase>
+    <testcase classname="Product Component - Mocked ProductService Mock: Tạo sản phẩm thất bại" name="Product Component - Mocked ProductService Mock: Tạo sản phẩm thất bại" time="0.14">
+    </testcase>
+    <testcase classname="Product Component - Mocked ProductService Mock: Lấy danh sách sản phẩm" name="Product Component - Mocked ProductService Mock: Lấy danh sách sản phẩm" time="0.076">
+    </testcase>
+    <testcase classname="Product Component - Mocked ProductService Mock: Cập nhật sản phẩm thành công" name="Product Component - Mocked ProductService Mock: Cập nhật sản phẩm thành công" time="0.08">
+    </testcase>
+    <testcase classname="Product Component - Mocked ProductService Mock: Xóa sản phẩm thành công" name="Product Component - Mocked ProductService Mock: Xóa sản phẩm thành công" time="0.036">
+    </testcase>
+  </testsuite>
+  <testsuite name="ProductPage Integration Test" errors="0" failures="0" skipped="0" timestamp="2025-11-30T09:49:31" time="4.204" tests="4">
+    <testcase classname="ProductPage Integration Test Xem danh sách sản phẩm" name="ProductPage Integration Test Xem danh sách sản phẩm" time="0.312">
+    </testcase>
+    <testcase classname="ProductPage Integration Test Tạo sản phẩm" name="ProductPage Integration Test Tạo sản phẩm" time="0.278">
+    </testcase>
+    <testcase classname="ProductPage Integration Test Sửa sản phẩm" name="ProductPage Integration Test Sửa sản phẩm" time="0.231">
+    </testcase>
+    <testcase classname="ProductPage Integration Test Xem chi tiết sản phẩm" name="ProductPage Integration Test Xem chi tiết sản phẩm" time="0.14">
+    </testcase>
+  </testsuite>
+  <testsuite name="Login component" errors="0" failures="0" skipped="0" timestamp="2025-11-30T09:49:35" time="2.459" tests="4">
+    <testcase classname="Login component renders inputs and submit button" name="Login component renders inputs and submit button" time="0.115">
+    </testcase>
+    <testcase classname="Login component shows validation errors and does not call API" name="Login component shows validation errors and does not call API" time="0.062">
+    </testcase>
+    <testcase classname="Login component successful login: stores token and navigates" name="Login component successful login: stores token and navigates" time="0.17">
+    </testcase>
+    <testcase classname="Login component shows server error message on failed login" name="Login component shows server error message on failed login" time="0.096">
+    </testcase>
+  </testsuite>
+  <testsuite name="Login Mock Tests" errors="0" failures="0" skipped="0" timestamp="2025-11-30T09:49:35" time="2.5" tests="2">
+    <testcase classname="Login Mock Tests Login thành công" name="Login Mock Tests Login thành công" time="0.234">
+    </testcase>
+    <testcase classname="Login Mock Tests Login thất bại" name="Login Mock Tests Login thất bại" time="0.097">
+    </testcase>
+  </testsuite>
+  <testsuite name="validateLogin" errors="0" failures="0" skipped="0" timestamp="2025-11-30T09:49:37" time="0.488" tests="8">
+    <testcase classname="validateLogin Test username rỗng" name="validateLogin Test username rỗng" time="0.002">
+    </testcase>
+    <testcase classname="validateLogin Test ký tự đặc biệt không hợp lệ" name="validateLogin Test ký tự đặc biệt không hợp lệ" time="0.001">
+    </testcase>
+    <testcase classname="validateLogin Test username quá ngắn/dài" name="validateLogin Test username quá ngắn/dài" time="0.001">
+    </testcase>
+    <testcase classname="validateLogin Test username hợp lệ" name="validateLogin Test username hợp lệ" time="0.001">
+    </testcase>
+    <testcase classname="validateLogin Test password rỗng" name="validateLogin Test password rỗng" time="0.001">
+    </testcase>
+    <testcase classname="validateLogin Test password quá ngắn/dài" name="validateLogin Test password quá ngắn/dài" time="0.001">
+    </testcase>
+    <testcase classname="validateLogin Test password không có chữ hoặc số" name="validateLogin Test password không có chữ hoặc số" time="0.001">
+    </testcase>
+    <testcase classname="validateLogin Test password hợp lệ" name="validateLogin Test password hợp lệ" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="validateProduct" errors="0" failures="0" skipped="0" timestamp="2025-11-30T09:49:38" time="0.446" tests="9">
+    <testcase classname="validateProduct name validation - empty" name="validateProduct name validation - empty" time="0.003">
+    </testcase>
+    <testcase classname="validateProduct name validation - too short and too long" name="validateProduct name validation - too short and too long" time="0.001">
+    </testcase>
+    <testcase classname="validateProduct price boundary tests" name="validateProduct price boundary tests" time="0.001">
+    </testcase>
+    <testcase classname="validateProduct price non-numeric and empty" name="validateProduct price non-numeric and empty" time="0.001">
+    </testcase>
+    <testcase classname="validateProduct quantity boundary tests" name="validateProduct quantity boundary tests" time="0.001">
+    </testcase>
+    <testcase classname="validateProduct quantity non-numeric and empty" name="validateProduct quantity non-numeric and empty" time="0">
+    </testcase>
+    <testcase classname="validateProduct description length validation" name="validateProduct description length validation" time="0">
+    </testcase>
+    <testcase classname="validateProduct category validation" name="validateProduct category validation" time="0.001">
+    </testcase>
+    <testcase classname="validateProduct valid product returns no errors" name="validateProduct valid product returns no errors" time="0.001">
     </testcase>
   </testsuite>
 </testsuites>

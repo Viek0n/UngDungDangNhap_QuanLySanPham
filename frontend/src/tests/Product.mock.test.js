@@ -1,5 +1,4 @@
 //npx jest src/tests/Product.mock.test.js  
-// src/tests/Products.mock.test.js
 import React from "react";
 import { render, screen, fireEvent, waitFor, act } from "@testing-library/react";
 import Products from "../components/Products/Products";
@@ -23,7 +22,7 @@ describe("Product Component - Mocked ProductService", () => {
     jest.clearAllMocks();
   });
 
-  test("Mock: Create product successfully", async () => {
+  test("Mock: Tạo sản phẩm thành công", async () => {
     productService.createProduct.mockResolvedValue(mockProduct);
     productService.getAllProducts.mockResolvedValue([]);
 
@@ -64,7 +63,7 @@ describe("Product Component - Mocked ProductService", () => {
     });
   });
 
-  test("Mock: Create product failure", async () => {
+  test("Mock: Tạo sản phẩm thất bại", async () => {
     productService.createProduct.mockRejectedValue(new Error("Failed"));
     productService.getAllProducts.mockResolvedValue([]);
 
@@ -82,7 +81,7 @@ describe("Product Component - Mocked ProductService", () => {
     });
   });
 
-  test("Mock: Get all products", async () => {
+  test("Mock: Lấy danh sách sản phẩm", async () => {
     productService.getAllProducts.mockResolvedValue([mockProduct]);
 
     await act(async () => {
@@ -95,7 +94,7 @@ describe("Product Component - Mocked ProductService", () => {
     });
   });
 
-  test("Mock: Update product successfully", async () => {
+  test("Mock: Cập nhật sản phẩm thành công", async () => {
     productService.updateProduct.mockResolvedValue(mockProduct);
     productService.getAllProducts.mockResolvedValue([mockProduct]);
 
@@ -105,7 +104,7 @@ describe("Product Component - Mocked ProductService", () => {
 
     // Simulate edit
     fireEvent.click(screen.getByTestId("edit-btn-1"));
-
+    await waitFor(() => screen.getByLabelText(/Tên sản phẩm/i));
     fireEvent.change(screen.getByTestId("modal-name"), {
       target: { value: "Pizza Updated" },
     });
@@ -119,7 +118,7 @@ describe("Product Component - Mocked ProductService", () => {
     });
   });
 
-  test("Mock: Delete product successfully", async () => {
+  test("Mock: Xóa sản phẩm thành công", async () => {
     productService.deleteProduct.mockResolvedValue();
     productService.getAllProducts.mockResolvedValue([mockProduct]);
 

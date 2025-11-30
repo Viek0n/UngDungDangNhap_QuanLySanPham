@@ -1,5 +1,5 @@
 // cho form sản phẩm
-export const validateProductForm = (product, availableCategories = []) => {
+export const validateProduct = (product, availableCategories = []) => {
     const errors = {};
 
     // --- Tên sản phẩm ---

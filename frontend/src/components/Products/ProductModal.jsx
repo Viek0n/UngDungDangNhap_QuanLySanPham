@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Products.css';
-import { validateProductForm } from '../../utils/validateProduct';
+import { validateProduct } from '../../utils/validateProduct';
 import { productService } from "../../services/api";
 
 export default function ProductModal({product, onClose, onSave, categories }) {
@@ -35,7 +35,7 @@ export default function ProductModal({product, onClose, onSave, categories }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { isValid, errors: validationErrors } = validateProductForm(form, categories);
+    const { isValid, errors: validationErrors } = validateProduct(form, categories);
     setErrors(validationErrors);
     if (!isValid) return;
     const updatedProduct = { ...product, ...form }

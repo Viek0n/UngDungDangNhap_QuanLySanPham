@@ -20,7 +20,7 @@ jest.mock('../services/api', () => ({
 const renderWithRouter = (ui) => {
   return render(<BrowserRouter>{ui}</BrowserRouter>);
 };
-
+//npm test -- src/tests/Login.integration.test.js --coverage
 describe('Login component', () => {
   beforeEach(() => {
     localStorage.clear();
@@ -70,7 +70,7 @@ describe('Login component', () => {
 
     renderWithRouter(<Login />);
     fireEvent.change(screen.getByLabelText(/Tên đăng nhập/i), { target: { value: 'user123' } });
-    fireEvent.change(screen.getByLabelText(/Mật khẩu/i), { target: { value: 'wrongpass' } });
+    fireEvent.change(screen.getByLabelText(/Mật khẩu/i), { target: { value: 'wrongpass1' } });
 
     fireEvent.click(screen.getByRole('button', { name: /Đăng nhập/i }));
 

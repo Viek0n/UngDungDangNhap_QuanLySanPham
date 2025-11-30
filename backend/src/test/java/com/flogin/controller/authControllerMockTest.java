@@ -1,18 +1,22 @@
 package com.flogin.controller;
 
-import com.flogin.dto.LoginRequest;
-import com.flogin.dto.LoginResponse;
-import com.flogin.service.AuthService;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
-public class authControllerTest {
+import com.flogin.dto.LoginRequest;
+import com.flogin.dto.LoginResponse;
+import com.flogin.service.AuthService;
+//mvn test -Dtest=authControllerMockTest
+public class authControllerMockTest {
 
     @Mock
     private AuthService authService; 
@@ -90,12 +94,12 @@ public class authControllerTest {
         LoginRequest request = new LoginRequest("user123", "123");
 
         when(authService.login(request))
-                .thenThrow(new RuntimeException("Mật khẩu phải có ít nhất 6 ký tự"));
+                .thenThrow(new RuntimeException("Mật khẩu phải dài 6-100 kí tự"));
 
         Exception exception = assertThrows(RuntimeException.class,
                 () -> authController.login(request));
 
-        assertTrue(exception.getMessage().contains("ít nhất 6 ký tự"));
+        assertTrue(exception.getMessage().contains("6-100 kí tự"));
     }
 
     // 6. Boundary - Username độ dài tối thiểu (min = 2 ký tự)
@@ -117,12 +121,12 @@ public class authControllerTest {
         LoginRequest request = new LoginRequest(longUsername, "password123");
 
         when(authService.login(request))
-                .thenThrow(new RuntimeException("Username quá dài"));
+                .thenThrow(new RuntimeException("Username phải dài 2-50 kí tự"));
 
         Exception exception = assertThrows(RuntimeException.class,
                 () -> authController.login(request));
 
-        assertTrue(exception.getMessage().contains("quá dài"));
+        assertTrue(exception.getMessage().contains("2-50 kí tự"));
     }
 
     // 8. Boundary - Password vượt quá độ dài tối đa (max = 100 ký tự)

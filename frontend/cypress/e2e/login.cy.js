@@ -48,7 +48,7 @@ describe("Login E2E Tests", () => {
       .should("contain", "Tên đăng nhập không được chứa ký tự đặc biệt ❗");
     loginPage
       .getFieldError()
-      .should("contain", "Mật khẩu phải có ít nhất 6 ký tự ❗");
+      .should("contain", "Mật khẩu phải dài 6-100 kí tự ❗");
   });
 
   // c) Test success/error flows

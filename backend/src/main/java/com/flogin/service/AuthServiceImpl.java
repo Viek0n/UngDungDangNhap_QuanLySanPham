@@ -11,7 +11,6 @@ import com.flogin.dto.LoginRequest;
 import com.flogin.dto.LoginResponse;
 import com.flogin.repository.UserRepository;
 import com.flogin.security.JwtTokenUtil;
-import com.flogin.entity.User;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -45,17 +44,11 @@ public class AuthServiceImpl implements AuthService {
         if (password == null || password.isBlank()) {
             throw new RuntimeException("Vui lòng nhập mật khẩu");
         }
-        if (username.length() < 2) {
-            throw new RuntimeException("Username quá ngắn");
+        if (username.length() < 2 || username.length() > 50) {
+            throw new RuntimeException("Username phải dài 2-50 kí tự");
         }
-        if (username.length() > 50) {
-            throw new RuntimeException("Username quá dài");
-        }
-        if (password.length() < 6) {
-            throw new RuntimeException("Mật khẩu phải có ít nhất 6 ký tự");
-        }
-        if (password.length() > 100) {
-            throw new RuntimeException("Mật khẩu quá dài");
+        if (password.length() < 6 || password.length() > 100) {
+            throw new RuntimeException("Mật khẩu phải dài 6-100 kí tự");
         }
         if (username.contains(" ")) {
             throw new RuntimeException("Tên đăng nhập không được chứa khoảng trắng");

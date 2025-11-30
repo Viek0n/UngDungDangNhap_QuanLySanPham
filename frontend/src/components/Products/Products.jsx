@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Products.css";
 import ProductModal from "./ProductModal";
-import { validateProductForm } from "../../utils/validateProduct";
+import { validateProduct } from "../../utils/validateProduct";
 import { productService } from "../../services/api";
 
 export default function Products() {
@@ -53,7 +53,8 @@ export default function Products() {
     setOpenForm(true);
   };
 
-  const handleEdit = (product) => {
+  const handleEdit = async (product) => {
+    await productService.getProduct(product.id);
     setSelectedProduct(product);
     setOpenForm(true);
   };
@@ -74,7 +75,7 @@ export default function Products() {
   };
 
   const handleModalSave = async (updatedProduct) => {
-    const { isValid, errors: validationErrors } = validateProductForm(
+    const { isValid, errors: validationErrors } = validateProduct(
       updatedProduct,
       categories
     );
@@ -176,13 +177,13 @@ export default function Products() {
 
       {filteredProducts.length > itemsPerPage && (
         <div className="pagination">
-          <button disabled={currentPage === 1} onClick={handlePrev}>
+          <button disabled={currentPage === 1} onClick={handlePrev} data-testid={`prev-btn`}>
             Prev
           </button>
           <span>
             {currentPage} / {totalPages}
           </span>
-          <button disabled={currentPage === totalPages} onClick={handleNext}>
+          <button disabled={currentPage === totalPages} onClick={handleNext} data-testid={`next-btn`}>
             Next
           </button>
         </div>
