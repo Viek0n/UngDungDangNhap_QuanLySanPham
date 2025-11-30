@@ -3,7 +3,7 @@ import { check, sleep } from 'k6';
 import { Trend } from 'k6/metrics';
 
 let productResponseTime = new Trend('product_response_time');
-//k6 run performance/productapi-test.js
+
 export let options = {
     stages: [
         { duration: '30s', target: 100 },  // 100 VUs

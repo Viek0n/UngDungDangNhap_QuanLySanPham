@@ -2,8 +2,6 @@ import http from 'k6/http';
 import { check, sleep } from 'k6';
 import { Trend } from 'k6/metrics';
 
-//k6 run performance/login-test.js
-// Metric custom để theo dõi response time
 let loginResponseTime = new Trend('login_response_time');
 
 export let options = {
