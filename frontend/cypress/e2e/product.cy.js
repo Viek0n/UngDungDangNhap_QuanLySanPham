@@ -50,6 +50,12 @@ describe('Product E2E Tests', () => {
       body: [{ ...product, id: 1 }],
     }).as('getProducts');
 
+    cy.intercept('GET', '/api/products/1', {
+      statusCode: 200,
+      body: { ...product, id: 1 },
+    }).as('getProductById');
+
+
     cy.intercept(
       {
         method: "PUT",
