@@ -61,7 +61,7 @@ describe("Login E2E Tests", () => {
 
     // Nhập sai thông tin đăng nhập
     loginPage.fillUsername("wronguser");
-    loginPage.fillPassword("wrongpass");
+    loginPage.fillPassword("wrongpass123");
     loginPage.submit();
 
     cy.wait("@loginFail");
