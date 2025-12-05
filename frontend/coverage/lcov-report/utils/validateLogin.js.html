@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/15</span>
+                <span class='fraction'>15/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>14/20</span>
+                <span class='fraction'>20/20</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/15</span>
+                <span class='fraction'>15/15</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -94,31 +94,31 @@
 <a name='L29'></a><a href='#L29'>29</a>
 <a name='L30'></a><a href='#L30'>30</a>
 <a name='L31'></a><a href='#L31'>31</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -128,24 +128,24 @@ export const validateLogin = (username, password) =&gt; {
     const errors = {};
 &nbsp;
     // USERNAME
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (!username || username.trim() === '') {
-<span class="cstat-no" title="statement not covered" >        errors.username = 'Vui lòng nhập tên đăng nhập ❗';</span>
+    if (!username || username.trim() === '') {
+        errors.username = 'Vui lòng nhập tên đăng nhập ❗';
     } 
-    else <span class="missing-if-branch" title="if path not taken" >I</span>if (!/^[a-zA-Z0-9_]+$/.test(username)) {
-<span class="cstat-no" title="statement not covered" >        errors.username = 'Tên đăng nhập không được chứa ký tự đặc biệt ❗';</span>
-    }else <span class="missing-if-branch" title="if path not taken" >I</span>if(username.length &lt; 3 || username.length &gt; 50){
-<span class="cstat-no" title="statement not covered" >        errors.username = 'Tên đăng nhập phải dài 3-50 ký tự ❗';</span>
+    else if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+        errors.username = 'Tên đăng nhập không được chứa ký tự đặc biệt ❗';
+    }else if(username.length &lt; 3 || username.length &gt; 50){
+        errors.username = 'Tên đăng nhập phải dài 3-50 ký tự ❗';
     }
 &nbsp;
     // PASSWORD
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (!password || password.trim() === '') {
-<span class="cstat-no" title="statement not covered" >        errors.password = 'Vui lòng nhập mật khẩu ❗';</span>
+    if (!password || password.trim() === '') {
+        errors.password = 'Vui lòng nhập mật khẩu ❗';
     } 
-    else <span class="missing-if-branch" title="if path not taken" >I</span>if (password.length &lt; 6 || password.length &gt; 100) {
-<span class="cstat-no" title="statement not covered" >        errors.password = 'Mật khẩu phải dài 6-100 kí tự ❗';</span>
+    else if (password.length &lt; 6 || password.length &gt; 100) {
+        errors.password = 'Mật khẩu phải dài 6-100 kí tự ❗';
     }
-    else <span class="missing-if-branch" title="if path not taken" >I</span>if (!/(?=.*[a-zA-Z])(?=.*[0-9])/.test(password)) {
-<span class="cstat-no" title="statement not covered" >        errors.password = 'Mật khẩu phải chứa cả chữ và số ❗';</span>
+    else if (!/(?=.*[a-zA-Z])(?=.*[0-9])/.test(password)) {
+        errors.password = 'Mật khẩu phải chứa cả chữ và số ❗';
     }
 &nbsp;
     return {
@@ -160,7 +160,7 @@ export const validateLogin = (username, password) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-11-29T18:42:04.821Z
+                at 2025-12-05T02:07:34.964Z
             </div>
         <script src="../prettify.js"></script>
         <script>

@@ -38,18 +38,18 @@ jobs:
         run: |
           cd backend
           ./mvnw clean test -DskipITs=false
-      #Build backend
-      - name: Package Backend
-        run: |
-          cd backend
-          ./mvnw clean package -DskipTests
-      #Upload lên GitHub Actions làm artifact, dặt tên artifact: backend-jar
-      #Giúp các job vd: frontend E2E tải file .jar về rồi chạy backend thật để test.
-      - name: Upload backend JAR
-        uses: actions/upload-artifact@v4
-        with:
-          name: backend-jar
-          path: backend/target/*.jar
+      # #Build backend
+      # - name: Package Backend
+      #   run: |
+      #     cd backend
+      #     ./mvnw clean package -DskipTests
+      # #Upload lên GitHub Actions làm artifact, dặt tên artifact: backend-jar
+      # #Giúp các job vd: frontend E2E tải file .jar về rồi chạy backend thật để test.
+      # - name: Upload backend JAR
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: backend-jar
+      #     path: backend/target/*.jar
       
 
       # Install dependencies
@@ -81,12 +81,12 @@ jobs:
             npx wait-on http://localhost:5173
 
       # -------------------
-      # Run tests
+      # Run front tests with coerage
       # -------------------
       - name: tests frontend with coverage
         run: |
             cd frontend
-            npm test --coverage
+            npm test -- --coverage
 
       # Run Cypress E2E tests
       - name: Run Product E2E Tests
@@ -103,3 +103,13 @@ jobs:
           path: |
             frontend/cypress/videos/
             frontend/cypress/screenshots/
+      
+      #Coverage upload
+      - name: Upload Coverage
+        uses: codecov/codecov-action@v4
+        with:
+          files: |
+            ./frontend/coverage/lcov.info
+            ./backend/target/site/jacoco/jacoco.xml
+
+
