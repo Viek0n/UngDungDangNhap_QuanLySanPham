@@ -86,7 +86,7 @@ jobs:
       - name: tests frontend with coverage
         run: |
             cd frontend
-            npm test -- --coverage --runInBand
+            npx jest --coverage --runInBand
 
       # Run Cypress E2E tests
       - name: Run Product E2E Tests
