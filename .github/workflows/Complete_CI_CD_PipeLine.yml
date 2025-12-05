@@ -38,18 +38,18 @@ jobs:
         run: |
           cd backend
           ./mvnw clean test -DskipITs=false
-      # #Build backend
-      # - name: Package Backend
-      #   run: |
-      #     cd backend
-      #     ./mvnw clean package -DskipTests
-      # #Upload lên GitHub Actions làm artifact, dặt tên artifact: backend-jar
-      # #Giúp các job vd: frontend E2E tải file .jar về rồi chạy backend thật để test.
-      # - name: Upload backend JAR
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: backend-jar
-      #     path: backend/target/*.jar
+      #Build backend
+      - name: Package Backend
+        run: |
+          cd backend
+          ./mvnw clean package -DskipTests
+      #Upload lên GitHub Actions làm artifact, dặt tên artifact: backend-jar
+      #Giúp các job vd: frontend E2E tải file .jar về rồi chạy backend thật để test.
+      - name: Upload backend JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-jar
+          path: backend/target/*.jar
       
 
       # Install dependencies
@@ -79,6 +79,14 @@ jobs:
             npm run build
             npm run dev &   # chạy Vite server ở background
             npx wait-on http://localhost:5173
+
+      # -------------------
+      # Run tests
+      # -------------------
+      - name: Run frontend tests with coverage
+        run: |
+            cd frontend
+            npm run coverage
 
       # Run Cypress E2E tests
       - name: Run Product E2E Tests
