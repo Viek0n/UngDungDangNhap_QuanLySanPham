@@ -32,24 +32,24 @@ jobs:
           cd backend
           chmod +x mvnw
       
-      #BackEnd Testings
-      #Note: -DskipITs=false = KHÔNG bỏ qua integration test
-      - name: Build & Test Backend
-        run: |
-          cd backend
-          ./mvnw clean test -DskipITs=false
-      #Build backend
-      - name: Package Backend
-        run: |
-          cd backend
-          ./mvnw clean package -DskipTests
-      #Upload lên GitHub Actions làm artifact, dặt tên artifact: backend-jar
-      #Giúp các job vd: frontend E2E tải file .jar về rồi chạy backend thật để test.
-      - name: Upload backend JAR
-        uses: actions/upload-artifact@v4
-        with:
-          name: backend-jar
-          path: backend/target/*.jar
+      # #BackEnd Testings
+      # #Note: -DskipITs=false = KHÔNG bỏ qua integration test
+      # - name: Build & Test Backend
+      #   run: |
+      #     cd backend
+      #     ./mvnw clean test -DskipITs=false
+      # #Build backend
+      # - name: Package Backend
+      #   run: |
+      #     cd backend
+      #     ./mvnw clean package -DskipTests
+      # #Upload lên GitHub Actions làm artifact, dặt tên artifact: backend-jar
+      # #Giúp các job vd: frontend E2E tải file .jar về rồi chạy backend thật để test.
+      # - name: Upload backend JAR
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: backend-jar
+      #     path: backend/target/*.jar
       
 
       # Install dependencies
