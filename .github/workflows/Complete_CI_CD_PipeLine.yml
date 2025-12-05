@@ -83,10 +83,10 @@ jobs:
       # -------------------
       # Run tests
       # -------------------
-      - name: Run frontend tests with coverage
+      - name: tests frontend with coverage
         run: |
             cd frontend
-            npm run coverage
+            npm test --coverage
 
       # Run Cypress E2E tests
       - name: Run Product E2E Tests
