@@ -32,12 +32,12 @@ jobs:
           cd backend
           chmod +x mvnw
       
-      # #BackEnd Testings
-      # #Note: -DskipITs=false = KHÔNG bỏ qua integration test
-      # - name: Build & Test Backend
-      #   run: |
-      #     cd backend
-      #     ./mvnw clean test -DskipITs=false
+      #BackEnd Testings
+      #Note: -DskipITs=false = KHÔNG bỏ qua integration test
+      - name: Build & Test Backend
+        run: |
+          cd backend
+          ./mvnw clean test -DskipITs=false
       # #Build backend
       # - name: Package Backend
       #   run: |
@@ -59,7 +59,7 @@ jobs:
         run: |
           cd frontend
           npm ci
-      # Seperate Cypress Installation because its somehow bugging thanks to Quang's commit
+      # Seperate Cypress Installation
       - name: Install Cypress
         run: |
           cd frontend
